@@ -1,0 +1,846 @@
+---
+import Footer from "../components/Footer.astro";
+---
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="generator" content="Astro v2.0.14" />
+        <title>
+            Stablo — Free Blog Website Template built with Astro & MDX
+        </title>
+        <link rel="canonical" href="https://stablo-astro.web3templates.com/" />
+        <meta
+            name="description"
+            content="Stablo is a Blog Starter Template built with Astro & MDX."
+        />
+        <meta name="robots" content="index, follow" />
+        <meta
+            property="og:title"
+            content="Stablo - Blog Starter Template for Astro"
+        />
+        <meta property="og:type" content="website" />
+        <meta
+            property="og:image"
+            content="https://stablo-astro.web3templates.com/opengraph.jpg"
+        />
+        <meta
+            property="og:url"
+            content="https://stablo-astro.web3templates.com/"
+        />
+        <meta
+            property="og:image:url"
+            content="https://stablo-astro.web3templates.com/opengraph.jpg"
+        />
+        <meta property="og:image:height" />
+        <meta property="og:image:alt" content="Stablo Screenshot" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@web3templates" />
+        <meta name="twitter:creator" content="@surjithctly" />
+        <link rel="stylesheet" href="/src/styles/ejemplo.css" /></head
+    >
+    <body>
+        <div
+            class="container px-8 py-5 lg:py-8 mx-auto xl:px-5 max-w-screen-lg"
+        >
+            <nav>
+                <div
+                    class="flex flex-wrap justify-between md:gap-10 md:flex-nowrap"
+                >
+                    <div
+                        class="flex-col items-center justify-start order-1 hidden w-full md:flex md:flex-row md:justify-end md:w-auto md:order-none md:flex-1"
+                    >
+                        <a
+                            href="/"
+                            class="px-5 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-blue-500"
+                        >
+                            Home
+                        </a><a
+                            href="/about"
+                            class="px-5 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-blue-500"
+                        >
+                            About
+                        </a><a
+                            href="/contact"
+                            class="px-5 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-blue-500"
+                        >
+                            Contact
+                        </a>
+                    </div>
+                    <div
+                        class="flex items-center justify-between w-full md:w-auto"
+                    >
+                        <a class="w-28 dark:hidden" href="/">
+                            <img
+                                alt="Logo"
+                                width="132"
+                                height="52"
+                                src=""
+                                loading="lazy"
+                                decoding="async"
+                            />
+                        </a>
+                        <a class="hidden w-28 dark:block" href="/">
+                            <img
+                                alt="Logo"
+                                width="132"
+                                height="52"
+                                src="/public/Escudo_CUCEI.png"
+                                loading="lazy"
+                                decoding="async"
+                            />
+                        </a>
+                        <button
+                            id="menu"
+                            aria-label="Toggle Menu"
+                            class="px-2 py-1 ml-auto text-gray-500 rounded-md md:hidden focus:text-blue-500 focus:outline-none dark:text-gray-300"
+                        >
+                            <svg
+                                class="w-6 h-6 fill-current"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    class="navmenu-toggle"
+                                    fill-rule="evenodd"
+                                    d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"
+                                ></path>
+                                <path
+                                    class="navmenu-toggle hidden"
+                                    fill-rule="evenodd"
+                                    clip-rule="evenodd"
+                                    d="M18.278 16.864a1 1 0 0 1-1.414 1.414l-4.829-4.828-4.828 4.828a1 1 0 0 1-1.414-1.414l4.828-4.829-4.828-4.828a1 1 0 0 1 1.414-1.414l4.829 4.828 4.828-4.828a1 1 0 1 1 1.414 1.414l-4.828 4.829 4.828 4.828z"
+                                ></path>
+                            </svg>
+                        </button>
+                    </div><div
+                        class="flex-col items-center justify-start order-2 hidden w-full md:flex md:flex-row md:w-auto md:flex-1 md:order-none"
+                    >
+                        <a
+                            href="/archive"
+                            class="px-5 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-blue-500"
+                        >
+                            Archive
+                        </a><a
+                            href="https://github.com/web3templates/stablo-astro"
+                            class="px-5 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-blue-500"
+                        >
+                            Github
+                        </a><a
+                            href="https://web3templates.com/templates/stablo-minimal-blog-website-template"
+                            class="px-5 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-blue-500"
+                        >
+                            Download
+                        </a>
+                    </div>
+                </div>
+                <div class="navmenu-toggle hidden">
+                    <div
+                        class="flex flex-col items-center justify-start order-2 w-full md:hidden"
+                    >
+                        <a
+                            href="/"
+                            class="px-5 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-blue-500"
+                            target
+                            rel
+                        >
+                            Home
+                        </a><a
+                            href="/about"
+                            class="px-5 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-blue-500"
+                            target
+                            rel
+                        >
+                            About
+                        </a><a
+                            href="/contact"
+                            class="px-5 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-blue-500"
+                            target
+                            rel
+                        >
+                            Contact
+                        </a><a
+                            href="/archive"
+                            class="px-5 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-blue-500"
+                            target
+                            rel
+                        >
+                            Archive
+                        </a><a
+                            href="https://github.com/web3templates/stablo-astro"
+                            class="px-5 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-blue-500"
+                            target="_blank"
+                            rel="noopener"
+                        >
+                            Github
+                        </a><a
+                            href="https://web3templates.com/templates/stablo-minimal-blog-website-template"
+                            class="px-5 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-blue-500"
+                            target="_blank"
+                            rel="noopener"
+                        >
+                            Download
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <script>
+            const menuButton = document.getElementById("menu");
+            menuButton.addEventListener("click", () => {
+                [...document.querySelectorAll(".navmenu-toggle")].forEach(
+                    (Element) => {
+                        Element.classList.toggle("hidden");
+                    },
+                );
+            });
+        </script>
+        <div
+            class="container px-8 py-5 lg:py-8 mx-auto xl:px-5 max-w-screen-lg"
+        >
+            <main>
+                <div class="grid gap-10 lg:gap-10 md:grid-cols-2">
+                    <div class="cursor-pointer group">
+                        <div
+                            class="relative overflow-hidden transition-all bg-gray-100 rounded-md dark:bg-gray-800 hover:scale-105 aspect-video"
+                        >
+                            <a
+                                href="/blog/14-architectural-design-ideas-for-spacious-interior"
+                            >
+                                <picture>
+                                    <source
+                                        type="image/avif"
+                                        srcset="/_astro/photo-1618220179428-22790b461013_3kv6A.avif 200w,/_astro/photo-1618220179428-22790b461013_ZvoOuR.avif 400w,/_astro/photo-1618220179428-22790b461013_Z1DSuxB.avif 800w"
+                                        sizes="(max-width: 640px) 90vw, 480px"
+                                    /><source
+                                        type="image/webp"
+                                        srcset="/_astro/photo-1618220179428-22790b461013_ZmthnX.webp 200w,/_astro/photo-1618220179428-22790b461013_ZVdC0q.webp 400w,/_astro/photo-1618220179428-22790b461013_Z24Hi3a.webp 800w"
+                                        sizes="(max-width: 640px) 90vw, 480px"
+                                    />
+                                    <img
+                                        alt="Thumbnail"
+                                        src="/_astro/photo-1618220179428-22790b461013_Z24Hi3a.webp"
+                                        loading="eager"
+                                        decoding="async"
+                                        class="w-full h-full rounded-md"
+                                    />
+                                </picture>
+                            </a>
+                        </div>
+                        <a href="#">
+                            <span
+                                class="inline-block mt-5 text-xs font-medium tracking-wider uppercase text-orange-700"
+                            >
+                                Lifestyle
+                            </span>
+                        </a>
+                        <h2
+                            class="mt-2 text-lg font-semibold tracking-normal text-brand-primary white:text-black"
+                        >
+                            <a
+                                href="/blog/14-architectural-design-ideas-for-spacious-interior"
+                            >
+                                <span
+                                    class="bg-gradient-to-r from-green-200 to-green-100 dark:from-purple-800 dark:to-purple-900 bg-[length:0px_10px] bg-left-bottom bg-no-repeat transition-[background-size] duration-500 hover:bg-[length:100%_3px] group-hover:bg-[length:100%_10px]"
+                                >
+                                    14 Architectural Design Ideas for a Spacious
+                                    Interior
+                                </span>
+                            </a>
+                        </h2>
+                        <div class="hidden">
+                            <p
+                                class="mt-2 text-sm text-gray-500 dark:text-gray-400 line-clamp-3"
+                            >
+                                <a
+                                    href="/blog/14-architectural-design-ideas-for-spacious-interior"
+                                    >Ornare cum cursus laoreet sagittis nunc
+                                    fusce posuere per euismod dis vehicula a,
+                                    semper fames lacus maecenas dictumst
+                                    pulvinar neque enim non potenti. Torquent
+                                    hac sociosqu eleifend potenti.</a
+                                >
+                            </p>
+                        </div>
+                        <div
+                            class="flex items-center mt-3 space-x-3 text-gray-500 dark:text-gray-400"
+                        >
+                            <div class="flex items-center gap-3">
+                                <div class="relative flex-shrink-0 w-5 h-5">
+                                    <img
+                                        alt="Author Photo"
+                                        class="rounded-full"
+                                        width="40"
+                                        height="40"
+                                        src="/_astro/mario_6AIBA.webp"
+                                        loading="lazy"
+                                        decoding="async"
+                                    />
+                                </div>
+                                <span class="text-sm">Mario Sanchez</span>
+                            </div>
+                            <span
+                                class="text-xs text-gray-300 dark:text-gray-600"
+                            >
+                                &bull;</span
+                            >
+                            <time
+                                class="text-sm"
+                                datetime="Fri Dec 30 2022 11:39:36 GMT+0000 (Coordinated Universal Time)"
+                            >
+                                Dec 30, 2022
+                            </time>
+                        </div>
+                    </div><div class="cursor-pointer group">
+                        <div
+                            class="relative overflow-hidden transition-all bg-gray-100 rounded-md dark:bg-gray-800 hover:scale-105 aspect-video"
+                        >
+                            <a
+                                href="/blog/complete-guide-fullstack-development"
+                            >
+                                <picture>
+                                    <source
+                                        type="image/avif"
+                                        srcset="/_astro/photo-1593720213428-28a5b9e94613_Z35qKV.avif 200w,/_astro/photo-1593720213428-28a5b9e94613_ZBOLno.avif 400w,/_astro/photo-1593720213428-28a5b9e94613_Z1Kjrq8.avif 800w"
+                                        sizes="(max-width: 640px) 90vw, 480px"
+                                    /><source
+                                        type="image/webp"
+                                        srcset="/_astro/photo-1593720213428-28a5b9e94613_ZsTegu.webp 200w,/_astro/photo-1593720213428-28a5b9e94613_Z12DyRW.webp 400w,/_astro/photo-1593720213428-28a5b9e94613_Z2b8eUG.webp 800w"
+                                        sizes="(max-width: 640px) 90vw, 480px"
+                                    />
+                                    <img
+                                        alt="Thumbnail"
+                                        src="/_astro/photo-1593720213428-28a5b9e94613_Z2b8eUG.webp"
+                                        loading="eager"
+                                        decoding="async"
+                                        class="w-full h-full rounded-md"
+                                    />
+                                </picture>
+                            </a>
+                        </div>
+                        <a href="#">
+                            <span
+                                class="inline-block mt-5 text-xs font-medium tracking-wider uppercase text-purple-600"
+                            >
+                                Design
+                            </span>
+                        </a>
+                        <h2
+                            class="mt-2 text-lg font-semibold tracking-normal text-brand-primary dark:text-white"
+                        >
+                            <a
+                                href="/blog/complete-guide-fullstack-development"
+                            >
+                                <span
+                                    class="bg-gradient-to-r from-green-200 to-green-100 dark:from-purple-800 dark:to-purple-900 bg-[length:0px_10px] bg-left-bottom bg-no-repeat transition-[background-size] duration-500 hover:bg-[length:100%_3px] group-hover:bg-[length:100%_10px]"
+                                >
+                                    The Complete Guide to Full Stack Web
+                                    Development
+                                </span>
+                            </a>
+                        </h2>
+                        <div class="hidden">
+                            <p
+                                class="mt-2 text-sm text-gray-500 dark:text-gray-400 line-clamp-3"
+                            >
+                                <a
+                                    href="/blog/complete-guide-fullstack-development"
+                                    >Ornare cum cursus laoreet sagittis nunc
+                                    fusce posuere per euismod dis vehicula a,
+                                    semper fames lacus maecenas dictumst
+                                    pulvinar neque enim non potenti. Torquent
+                                    hac sociosqu eleifend potenti.</a
+                                >
+                            </p>
+                        </div>
+                        <div
+                            class="flex items-center mt-3 space-x-3 text-gray-500 dark:text-gray-400"
+                        >
+                            <div class="flex items-center gap-3">
+                                <div class="relative flex-shrink-0 w-5 h-5">
+                                    <img
+                                        alt="Author Photo"
+                                        class="rounded-full"
+                                        width="40"
+                                        height="40"
+                                        src="/_astro/mario_6AIBA.webp"
+                                        loading="lazy"
+                                        decoding="async"
+                                    />
+                                </div>
+                                <span class="text-sm">Mario Sanchez</span>
+                            </div>
+                            <span
+                                class="text-xs text-gray-300 dark:text-gray-600"
+                            >
+                                &bull;</span
+                            >
+                            <time
+                                class="text-sm"
+                                datetime="Wed Dec 28 2022 11:39:36 GMT+0000 (Coordinated Universal Time)"
+                            >
+                                Dec 28, 2022
+                            </time>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="grid gap-10 mt-10 lg:gap-10 md:grid-cols-2 xl:grid-cols-3"
+                >
+                    <div class="cursor-pointer group">
+                        <div
+                            class="relative overflow-hidden transition-all bg-gray-100 rounded-md dark:bg-gray-800 hover:scale-105 aspect-square"
+                        >
+                            <a
+                                href="/blog/this-bread-pudding-will-give-you-all-the-fall-feels"
+                            >
+                                <picture>
+                                    <source
+                                        type="image/avif"
+                                        srcset="/_astro/photo-1567620905732-2d1ec7ab7445_2u4LBs.avif 200w,/_astro/photo-1567620905732-2d1ec7ab7445_2oQ86k.avif 400w,/_astro/photo-1567620905732-2d1ec7ab7445_2eoP54.avif 800w"
+                                        sizes="(max-width: 640px) 90vw, 480px"
+                                    /><source
+                                        type="image/webp"
+                                        srcset="/_astro/photo-1567620905732-2d1ec7ab7445_Z1JJA5a.webp 200w,/_astro/photo-1567620905732-2d1ec7ab7445_Z1OXeAi.webp 400w,/_astro/photo-1567620905732-2d1ec7ab7445_Z20pwBy.webp 800w"
+                                        sizes="(max-width: 640px) 90vw, 480px"
+                                    />
+                                    <img
+                                        alt="Thumbnail"
+                                        src="/_astro/photo-1567620905732-2d1ec7ab7445_Z20pwBy.webp"
+                                        loading="lazy"
+                                        decoding="async"
+                                        class="w-full h-full rounded-md"
+                                    />
+                                </picture>
+                            </a>
+                        </div>
+                        <a href="#">
+                            <span
+                                class="inline-block mt-5 text-xs font-medium tracking-wider uppercase text-pink-600"
+                            >
+                                Travel
+                            </span>
+                        </a>
+                        <h2
+                            class="mt-2 text-lg font-semibold tracking-normal text-brand-primary dark:text-white"
+                        >
+                            <a
+                                href="/blog/this-bread-pudding-will-give-you-all-the-fall-feels"
+                            >
+                                <span
+                                    class="bg-gradient-to-r from-green-200 to-green-100 dark:from-purple-800 dark:to-purple-900 bg-[length:0px_10px] bg-left-bottom bg-no-repeat transition-[background-size] duration-500 hover:bg-[length:100%_3px] group-hover:bg-[length:100%_10px]"
+                                >
+                                    This Bread Pudding Will Give You All the
+                                    Fall Feels
+                                </span>
+                            </a>
+                        </h2>
+                        <div class="hidden">
+                            <p
+                                class="mt-2 text-sm text-gray-500 dark:text-gray-400 line-clamp-3"
+                            >
+                                <a
+                                    href="/blog/this-bread-pudding-will-give-you-all-the-fall-feels"
+                                    >We always knew but now we know. The tech
+                                    elite mean to leave us all behind.</a
+                                >
+                            </p>
+                        </div>
+                        <div
+                            class="flex items-center mt-3 space-x-3 text-gray-500 dark:text-gray-400"
+                        >
+                            <div class="flex items-center gap-3">
+                                <div class="relative flex-shrink-0 w-5 h-5">
+                                    <img
+                                        alt="Author Photo"
+                                        class="rounded-full"
+                                        width="40"
+                                        height="40"
+                                        src="/_astro/erika_B8Rrw.webp"
+                                        loading="lazy"
+                                        decoding="async"
+                                    />
+                                </div>
+                                <span class="text-sm">Erika Oliver</span>
+                            </div>
+                            <span
+                                class="text-xs text-gray-300 dark:text-gray-600"
+                            >
+                                &bull;</span
+                            >
+                            <time
+                                class="text-sm"
+                                datetime="Tue Dec 27 2022 11:39:36 GMT+0000 (Coordinated Universal Time)"
+                            >
+                                Dec 27, 2022
+                            </time>
+                        </div>
+                    </div><div class="cursor-pointer group">
+                        <div
+                            class="relative overflow-hidden transition-all bg-gray-100 rounded-md dark:bg-gray-800 hover:scale-105 aspect-square"
+                        >
+                            <a
+                                href="/blog/every-next-level-of-your-life-will-demand-a-different-you"
+                            >
+                                <picture>
+                                    <source
+                                        type="image/avif"
+                                        srcset="/_astro/photo-1501747315-124a0eaca060_ZIJRr8.avif 200w,/_astro/photo-1501747315-124a0eaca060_ZNXvWg.avif 400w,/_astro/photo-1501747315-124a0eaca060_ZYpNXw.avif 800w"
+                                        sizes="(max-width: 640px) 90vw, 480px"
+                                    /><source
+                                        type="image/webp"
+                                        srcset="/_astro/photo-1501747315-124a0eaca060_6BSFb.webp 200w,/_astro/photo-1501747315-124a0eaca060_1ofa3.webp 400w,/_astro/photo-1501747315-124a0eaca060_Z932Qd.webp 800w"
+                                        sizes="(max-width: 640px) 90vw, 480px"
+                                    />
+                                    <img
+                                        alt="Thumbnail"
+                                        src="/_astro/photo-1501747315-124a0eaca060_Z932Qd.webp"
+                                        loading="lazy"
+                                        decoding="async"
+                                        class="w-full h-full rounded-md"
+                                    />
+                                </picture>
+                            </a>
+                        </div>
+                        <a href="#">
+                            <span
+                                class="inline-block mt-5 text-xs font-medium tracking-wider uppercase text-emerald-700"
+                            >
+                                Personal
+                            </span>
+                        </a>
+                        <h2
+                            class="mt-2 text-lg font-semibold tracking-normal text-brand-primary dark:text-white"
+                        >
+                            <a
+                                href="/blog/every-next-level-of-your-life-will-demand-a-different-you"
+                            >
+                                <span
+                                    class="bg-gradient-to-r from-green-200 to-green-100 dark:from-purple-800 dark:to-purple-900 bg-[length:0px_10px] bg-left-bottom bg-no-repeat transition-[background-size] duration-500 hover:bg-[length:100%_3px] group-hover:bg-[length:100%_10px]"
+                                >
+                                    Every Next Level of Your Life Will Demand a
+                                    Different You
+                                </span>
+                            </a>
+                        </h2>
+                        <div class="hidden">
+                            <p
+                                class="mt-2 text-sm text-gray-500 dark:text-gray-400 line-clamp-3"
+                            >
+                                <a
+                                    href="/blog/every-next-level-of-your-life-will-demand-a-different-you"
+                                    >Some description</a
+                                >
+                            </p>
+                        </div>
+                        <div
+                            class="flex items-center mt-3 space-x-3 text-gray-500 dark:text-gray-400"
+                        >
+                            <div class="flex items-center gap-3">
+                                <div class="relative flex-shrink-0 w-5 h-5">
+                                    <img
+                                        alt="Author Photo"
+                                        class="rounded-full"
+                                        width="40"
+                                        height="40"
+                                        src="/_astro/joshua_ZSqyUJ.webp"
+                                        loading="lazy"
+                                        decoding="async"
+                                    />
+                                </div>
+                                <span class="text-sm">Joshua Wood</span>
+                            </div>
+                            <span
+                                class="text-xs text-gray-300 dark:text-gray-600"
+                            >
+                                &bull;</span
+                            >
+                            <time
+                                class="text-sm"
+                                datetime="Thu Nov 24 2022 11:39:36 GMT+0000 (Coordinated Universal Time)"
+                            >
+                                Nov 24, 2022
+                            </time>
+                        </div>
+                    </div><div class="cursor-pointer group">
+                        <div
+                            class="relative overflow-hidden transition-all bg-gray-100 rounded-md dark:bg-gray-800 hover:scale-105 aspect-square"
+                        >
+                            <a
+                                href="/blog/nothing-new-about-undermining-women-autonomy"
+                            >
+                                <picture>
+                                    <source
+                                        type="image/avif"
+                                        srcset="/_astro/photo-1502685104226-ee32379fefbe_1byG9o.avif 200w,/_astro/photo-1502685104226-ee32379fefbe_16l2Dg.avif 400w,/_astro/photo-1502685104226-ee32379fefbe_USJC0.avif 800w"
+                                        sizes="(max-width: 640px) 90vw, 480px"
+                                    /><source
+                                        type="image/webp"
+                                        srcset="/_astro/photo-1502685104226-ee32379fefbe_21VsgH.webp 200w,/_astro/photo-1502685104226-ee32379fefbe_1VHNKz.webp 400w,/_astro/photo-1502685104226-ee32379fefbe_1LgvJj.webp 800w"
+                                        sizes="(max-width: 640px) 90vw, 480px"
+                                    />
+                                    <img
+                                        alt="Thumbnail"
+                                        src="/_astro/photo-1502685104226-ee32379fefbe_1LgvJj.webp"
+                                        loading="lazy"
+                                        decoding="async"
+                                        class="w-full h-full rounded-md"
+                                    />
+                                </picture>
+                            </a>
+                        </div>
+                        <a href="#">
+                            <span
+                                class="inline-block mt-5 text-xs font-medium tracking-wider uppercase text-orange-700"
+                            >
+                                Lifestyle
+                            </span>
+                        </a>
+                        <h2
+                            class="mt-2 text-lg font-semibold tracking-normal text-brand-primary dark:text-white"
+                        >
+                            <a
+                                href="/blog/nothing-new-about-undermining-women-autonomy"
+                            >
+                                <span
+                                    class="bg-gradient-to-r from-green-200 to-green-100 dark:from-purple-800 dark:to-purple-900 bg-[length:0px_10px] bg-left-bottom bg-no-repeat transition-[background-size] duration-500 hover:bg-[length:100%_3px] group-hover:bg-[length:100%_10px]"
+                                >
+                                    There’s Nothing New About Undermining
+                                    Women’s Autonomy
+                                </span>
+                            </a>
+                        </h2>
+                        <div class="hidden">
+                            <p
+                                class="mt-2 text-sm text-gray-500 dark:text-gray-400 line-clamp-3"
+                            >
+                                <a
+                                    href="/blog/nothing-new-about-undermining-women-autonomy"
+                                    >In 2007, the now-defunct San Antonio
+                                    Independent Christian Film Festival awarded
+                                    Best of Festival to a documentary called The
+                                    Monstrous Regiment of Women
+                                </a>
+                            </p>
+                        </div>
+                        <div
+                            class="flex items-center mt-3 space-x-3 text-gray-500 dark:text-gray-400"
+                        >
+                            <div class="flex items-center gap-3">
+                                <div class="relative flex-shrink-0 w-5 h-5">
+                                    <img
+                                        alt="Author Photo"
+                                        class="rounded-full"
+                                        width="40"
+                                        height="40"
+                                        src="/_astro/joshua_ZSqyUJ.webp"
+                                        loading="lazy"
+                                        decoding="async"
+                                    />
+                                </div>
+                                <span class="text-sm">Joshua Wood</span>
+                            </div>
+                            <span
+                                class="text-xs text-gray-300 dark:text-gray-600"
+                            >
+                                &bull;</span
+                            >
+                            <time
+                                class="text-sm"
+                                datetime="Fri Nov 18 2022 11:39:36 GMT+0000 (Coordinated Universal Time)"
+                            >
+                                Nov 18, 2022
+                            </time>
+                        </div>
+                    </div><div class="cursor-pointer group">
+                        <div
+                            class="relative overflow-hidden transition-all bg-gray-100 rounded-md dark:bg-gray-800 hover:scale-105 aspect-square"
+                        >
+                            <a
+                                href="/blog/essential-data-structures-algorithms"
+                            >
+                                <picture>
+                                    <source
+                                        type="image/avif"
+                                        srcset="/_astro/photo-1627163439134-7a8c47e08208_Z7EdgD.avif 200w,/_astro/photo-1627163439134-7a8c47e08208_ZcRQLL.avif 400w,/_astro/photo-1627163439134-7a8c47e08208_Znk9N2.avif 800w"
+                                        sizes="(max-width: 640px) 90vw, 480px"
+                                    /><source
+                                        type="image/webp"
+                                        srcset="/_astro/photo-1627163439134-7a8c47e08208_HHxPF.webp 200w,/_astro/photo-1627163439134-7a8c47e08208_CtTkx.webp 400w,/_astro/photo-1627163439134-7a8c47e08208_s2Bjh.webp 800w"
+                                        sizes="(max-width: 640px) 90vw, 480px"
+                                    />
+                                    <img
+                                        alt="Thumbnail"
+                                        src="/_astro/photo-1627163439134-7a8c47e08208_s2Bjh.webp"
+                                        loading="lazy"
+                                        decoding="async"
+                                        class="w-full h-full rounded-md"
+                                    />
+                                </picture>
+                            </a>
+                        </div>
+                        <a href="#">
+                            <span
+                                class="inline-block mt-5 text-xs font-medium tracking-wider uppercase text-purple-600"
+                            >
+                                Design
+                            </span>
+                        </a>
+                        <h2
+                            class="mt-2 text-lg font-semibold tracking-normal text-brand-primary dark:text-white"
+                        >
+                            <a
+                                href="/blog/essential-data-structures-algorithms"
+                            >
+                                <span
+                                    class="bg-gradient-to-r from-green-200 to-green-100 dark:from-purple-800 dark:to-purple-900 bg-[length:0px_10px] bg-left-bottom bg-no-repeat transition-[background-size] duration-500 hover:bg-[length:100%_3px] group-hover:bg-[length:100%_10px]"
+                                >
+                                    Introduction to the Essential Data
+                                    Structures &amp; Algorithms
+                                </span>
+                            </a>
+                        </h2>
+                        <div class="hidden">
+                            <p
+                                class="mt-2 text-sm text-gray-500 dark:text-gray-400 line-clamp-3"
+                            >
+                                <a
+                                    href="/blog/essential-data-structures-algorithms"
+                                    >Ornare cum cursus laoreet sagittis nunc
+                                    fusce posuere per euismod dis vehicula a,
+                                    semper fames lacus maecenas dictumst
+                                    pulvinar neque enim non potenti. Torquent
+                                    hac sociosqu eleifend potenti.</a
+                                >
+                            </p>
+                        </div>
+                        <div
+                            class="flex items-center mt-3 space-x-3 text-gray-500 dark:text-gray-400"
+                        >
+                            <div class="flex items-center gap-3">
+                                <div class="relative flex-shrink-0 w-5 h-5">
+                                    <img
+                                        alt="Author Photo"
+                                        class="rounded-full"
+                                        width="40"
+                                        height="40"
+                                        src="/_astro/joshua_ZSqyUJ.webp"
+                                        loading="lazy"
+                                        decoding="async"
+                                    />
+                                </div>
+                                <span class="text-sm">Joshua Wood</span>
+                            </div>
+                            <span
+                                class="text-xs text-gray-300 dark:text-gray-600"
+                            >
+                                &bull;</span
+                            >
+                            <time
+                                class="text-sm"
+                                datetime="Wed Nov 09 2022 16:39:36 GMT+0000 (Coordinated Universal Time)"
+                            >
+                                Nov 9, 2022
+                            </time>
+                        </div>
+                    </div><div class="cursor-pointer group">
+                        <div
+                            class="relative overflow-hidden transition-all bg-gray-100 rounded-md dark:bg-gray-800 hover:scale-105 aspect-square"
+                        >
+                            <a href="/blog/how-to-become-frontend-master">
+                                <picture>
+                                    <source
+                                        type="image/avif"
+                                        srcset="/_astro/photo-1667372393119-3d4c48d07fc9_26Vclj.avif 200w,/_astro/photo-1667372393119-3d4c48d07fc9_21HxPb.avif 400w,/_astro/photo-1667372393119-3d4c48d07fc9_1QgfNU.avif 800w"
+                                        sizes="(max-width: 640px) 90vw, 480px"
+                                    /><source
+                                        type="image/webp"
+                                        srcset="/_astro/photo-1667372393119-3d4c48d07fc9_Z27Salj.webp 200w,/_astro/photo-1667372393119-3d4c48d07fc9_Z2d6NQr.webp 400w,/_astro/photo-1667372393119-3d4c48d07fc9_Z2ny6RH.webp 800w"
+                                        sizes="(max-width: 640px) 90vw, 480px"
+                                    />
+                                    <img
+                                        alt="Thumbnail"
+                                        src="/_astro/photo-1667372393119-3d4c48d07fc9_Z2ny6RH.webp"
+                                        loading="lazy"
+                                        decoding="async"
+                                        class="w-full h-full rounded-md"
+                                    />
+                                </picture>
+                            </a>
+                        </div>
+                        <a href="#">
+                            <span
+                                class="inline-block mt-5 text-xs font-medium tracking-wider uppercase text-pink-600"
+                            >
+                                Travel
+                            </span>
+                        </a>
+                        <h2
+                            class="mt-2 text-lg font-semibold tracking-normal text-brand-primary dark:text-white"
+                        >
+                            <a href="/blog/how-to-become-frontend-master">
+                                <span
+                                    class="bg-gradient-to-r from-green-200 to-green-100 dark:from-purple-800 dark:to-purple-900 bg-[length:0px_10px] bg-left-bottom bg-no-repeat transition-[background-size] duration-500 hover:bg-[length:100%_3px] group-hover:bg-[length:100%_10px]"
+                                >
+                                    How to become a Frontend Master
+                                </span>
+                            </a>
+                        </h2>
+                        <div class="hidden">
+                            <p
+                                class="mt-2 text-sm text-gray-500 dark:text-gray-400 line-clamp-3"
+                            >
+                                <a href="/blog/how-to-become-frontend-master"
+                                    >Ornare cum cursus laoreet sagittis nunc
+                                    fusce posuere per euismod dis vehicula a,
+                                    semper fames lacus maecenas dictumst
+                                    pulvinar neque enim non potenti. Torquent
+                                    hac sociosqu eleifend potenti.</a
+                                >
+                            </p>
+                        </div>
+                        <div
+                            class="flex items-center mt-3 space-x-3 text-gray-500 dark:text-gray-400"
+                        >
+                            <div class="flex items-center gap-3">
+                                <div class="relative flex-shrink-0 w-5 h-5">
+                                    <img
+                                        alt="Author Photo"
+                                        class="rounded-full"
+                                        width="40"
+                                        height="40"
+                                        src="/_astro/erika_B8Rrw.webp"
+                                        loading="lazy"
+                                        decoding="async"
+                                    />
+                                </div>
+                                <span class="text-sm">Erika Oliver</span>
+                            </div>
+                            <span
+                                class="text-xs text-gray-300 dark:text-gray-600"
+                            >
+                                &bull;</span
+                            >
+                            <time
+                                class="text-sm"
+                                datetime="Mon Nov 07 2022 15:39:36 GMT+0000 (Coordinated Universal Time)"
+                            >
+                                Nov 7, 2022
+                            </time>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <Footer/>
+
+        <script
+            defer
+            src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015"
+            integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ=="
+            data-cf-beacon='{"rayId":"893674967f766bef","r":1,"version":"2024.4.1","token":"d8da3b32e8804bb3905f81447bc26950"}'
+            crossorigin="anonymous"></script>
+    </body>
+</html>
