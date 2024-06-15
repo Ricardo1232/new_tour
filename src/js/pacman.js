@@ -1280,3 +1280,67 @@ Object.prototype.clone = function () {
     }
     return newObj;
 };
+
+
+
+
+// Dentro de la función init, después de cargar los elementos necesarios
+function init(wrapper, root) {
+    // Resto de tu código existente...
+
+    var touchStartX = null;
+    var touchStartY = null;
+
+    // Manejo de eventos táctiles
+    canvas.addEventListener('touchstart', function(e) {
+        e.preventDefault();
+        var touch = e.touches[0];
+        touchStartX = touch.pageX;
+        touchStartY = touch.pageY;
+    }, false);
+
+    canvas.addEventListener('touchmove', function(e) {
+        e.preventDefault();
+        if (touchStartX === null || touchStartY === null) {
+            return;
+        }
+        var touch = e.touches[0];
+        var touchEndX = touch.pageX;
+        var touchEndY = touch.pageY;
+
+        // Calcular la dirección basada en el movimiento del dedo
+        var deltaX = touchEndX - touchStartX;
+        var deltaY = touchEndY - touchStartY;
+
+        if (Math.abs(deltaX) > Math.abs(deltaY)) {
+            // Movimiento horizontal
+            if (deltaX > 0) {
+                user.setNextDirection(Pacman.RIGHT); // Definir la dirección correcta según tu implementación
+            } else {
+                user.setNextDirection(Pacman.LEFT); // Definir la dirección correcta según tu implementación
+            }
+        } else {
+            // Movimiento vertical
+            if (deltaY > 0) {
+                user.setNextDirection(Pacman.DOWN); // Definir la dirección correcta según tu implementación
+            } else {
+                user.setNextDirection(Pacman.UP); // Definir la dirección correcta según tu implementación
+            }
+        }
+
+        // Reiniciar el punto de inicio para el próximo movimiento
+        touchStartX = touchEndX;
+        touchStartY = touchEndY;
+    }, false);
+
+    canvas.addEventListener('touchend', function(e) {
+        e.preventDefault();
+        touchStartX = null;
+        touchStartY = null;
+    }, false);
+
+    // Resto de tu código init...
+}
+
+// Asegúrate de que Pacman tenga las direcciones correspondientes definidas (UP, DOWN, LEFT, RIGHT)
+
