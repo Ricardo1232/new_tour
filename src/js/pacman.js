@@ -7,6 +7,117 @@
  * fix what happens when a ghost is eaten (should go back to base)
  * do proper ghost mechanics (blinky/wimpy etc)
  */
+// Variables globales para mantener el estado del juego y la posición del jugador
+let pacman = {
+    x: 9,   // Posición inicial de Pac-Man en el eje x
+    y: 17,  // Posición inicial de Pac-Man en el eje y
+    direction: 'left'  // Dirección inicial de Pac-Man
+};
+
+// Función para manejar los eventos táctiles y mover a Pac-Man
+function handleTouchControls() {
+    const swipeThreshold = 50;  // Umbral de movimiento para considerarlo un swipe válido
+
+    let startX, startY;
+
+    // Evento cuando se inicia el toque
+    document.addEventListener('touchstart', function(e) {
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+    });
+
+    // Evento cuando se realiza el deslizamiento
+    document.addEventListener('touchmove', function(e) {
+        e.preventDefault(); // Evitar scroll
+
+        let endX = e.touches[0].clientX;
+        let endY = e.touches[0].clientY;
+
+        // Calcular la distancia recorrida en X y Y
+        let deltaX = endX - startX;
+        let deltaY = endY - startY;
+
+        // Determinar la dirección basada en el deslizamiento
+        if (Math.abs(deltaX) > swipeThreshold || Math.abs(deltaY) > swipeThreshold) {
+            if (Math.abs(deltaX) > Math.abs(deltaY)) {
+                // Movimiento horizontal
+                if (deltaX > 0) {
+                    movePacman('right');
+                } else {
+                    movePacman('left');
+                }
+            } else {
+                // Movimiento vertical
+                if (deltaY > 0) {
+                    movePacman('down');
+                } else {
+                    movePacman('up');
+                }
+            }
+        }
+    });
+}
+
+// Función para mover a Pac-Man en la dirección especificada
+function movePacman(direction) {
+    // Implementa la lógica para mover a Pac-Man según las paredes y los límites del tablero
+
+    // Ejemplo básico de movimiento en las direcciones principales (izquierda, derecha, arriba, abajo)
+    switch (direction) {
+        case 'left':
+            if (isValidMove(pacman.x - 1, pacman.y)) {
+                pacman.x--;
+            }
+            break;
+        case 'right':
+            if (isValidMove(pacman.x + 1, pacman.y)) {
+                pacman.x++;
+            }
+            break;
+        case 'up':
+            if (isValidMove(pacman.x, pacman.y - 1)) {
+                pacman.y--;
+            }
+            break;
+        case 'down':
+            if (isValidMove(pacman.x, pacman.y + 1)) {
+                pacman.y++;
+            }
+            break;
+    }
+
+    // Lógica adicional para gestionar colisiones, puntuación, etc.
+
+    // Actualizar la visualización del juego
+    // Aquí puedes llamar a una función para renderizar el tablero y a Pac-Man con su nueva posición
+    renderGame();
+}
+
+// Función auxiliar para validar si el movimiento es válido
+function isValidMove(x, y) {
+    // Implementa la lógica para verificar si la posición (x, y) es válida en el mapa de Pac-Man
+    // Utiliza Pacman.MAP para verificar los límites del tablero y las paredes
+    if (x >= 0 && x < Pacman.MAP[0].length && y >= 0 && y < Pacman.MAP.length) {
+        let mapValue = Pacman.MAP[y][x];
+        return mapValue !== 0; // No puedes moverte a las casillas que son paredes (valor 0)
+    }
+    return false;
+}
+
+// Función para renderizar el juego (simulada)
+function renderGame() {
+    // Aquí debes implementar la lógica para actualizar la visualización del juego
+    // Puedes usar Pacman.MAP y Pacman.WALLS junto con la posición actual de Pac-Man (pacman.x, pacman.y)
+    // para dibujar el tablero y al jugador en su nueva posición
+    console.log('Pac-Man está en:', pacman.x, ',', pacman.y);
+    // Aquí deberías tener la lógica de dibujo o actualización visual del juego en la pantalla
+}
+
+// Iniciar el manejo de los controles táctiles
+handleTouchControls();
+
+
+
 
 var NONE        = 4,
     UP          = 3,
@@ -34,7 +145,7 @@ Pacman.Ghost = function (game, map, colour) {
     
     function getNewCoord(dir, current) { 
         
-        var speed  = isVunerable() ? 1 : isHidden() ? 3 : 2,
+        var speed  = isVunerable() ? 1 : isHidden() ? 2.5 : 2,
             xSpeed = (dir === LEFT && -speed || dir === RIGHT && speed || 0),
             ySpeed = (dir === DOWN && speed || dir === UP && -speed || 0);
     
@@ -278,32 +389,77 @@ Pacman.Ghost = function (game, map, colour) {
 };
 
 Pacman.User = function (game, map) {
-    
-    var position  = null,
-        direction = null,
-        eaten     = null,
-        due       = null, 
-        lives     = null,
-        score     = 5,
-        keyMap    = {};
-    
-    keyMap[KEY.ARROW_LEFT]  = LEFT;
-    keyMap[KEY.ARROW_UP]    = UP;
-    keyMap[KEY.ARROW_RIGHT] = RIGHT;
-    keyMap[KEY.ARROW_DOWN]  = DOWN;
 
-    function addScore(nScore) { 
+    var position = null,
+        direction = null,
+        eaten = null,
+        due = null,
+        lives = null,
+        score = 5,
+        keyMap = {};
+
+    keyMap[KEY.ARROW_LEFT] = LEFT;
+    keyMap[KEY.ARROW_UP] = UP;
+    keyMap[KEY.ARROW_RIGHT] = RIGHT;
+    keyMap[KEY.ARROW_DOWN] = DOWN;
+
+    var startX, startY, endX, endY;
+
+    // Función para manejar eventos táctiles
+    function handleTouchStart(event) {
+        event.preventDefault();  // Previene el comportamiento predeterminado del navegador
+        var touch = event.touches[0];
+        startX = touch.clientX;
+        startY = touch.clientY;
+    }
+
+    function handleTouchMove(event) {
+        event.preventDefault();
+        var touch = event.touches[0];
+        endX = touch.clientX;
+        endY = touch.clientY;
+    }
+
+    function handleTouchEnd(event) {
+        var deltaX = endX - startX;
+        var deltaY = endY - startY;
+
+        // Determinar la dirección del deslizamiento
+        if (Math.abs(deltaX) > Math.abs(deltaY)) {
+            if (deltaX > 0) {
+                // Swipe hacia la derecha
+                due = RIGHT;
+            } else {
+                // Swipe hacia la izquierda
+                due = LEFT;
+            }
+        } else {
+            if (deltaY > 0) {
+                // Swipe hacia abajo
+                due = DOWN;
+            } else {
+                // Swipe hacia arriba
+                due = UP;
+            }
+        }
+    }
+
+    document.addEventListener('touchstart', handleTouchStart, false);
+    document.addEventListener('touchmove', handleTouchMove, false);
+    document.addEventListener('touchend', handleTouchEnd, false);
+
+    function addScore(nScore) {
         score += nScore;
-        if (score >= 10000 && score - nScore < 10000) { 
+        if (score >= 10000 && score - nScore < 10000) {
             lives += 1;
         }
     };
 
-    function theScore() { 
+    function theScore() {
         return score;
     };
 
-    function loseLife() { 
+    function loseLife() {
         lives -= 1;
     };
 
@@ -316,37 +472,37 @@ Pacman.User = function (game, map) {
         lives = 3;
         newLevel();
     }
-    
+
     function newLevel() {
         resetPosition();
         eaten = 0;
     };
-    
+
     function resetPosition() {
-        position = {"x": 90, "y": 120};
+        position = { "x": 90, "y": 120 };
         direction = LEFT;
         due = LEFT;
     };
-    
+
     function reset() {
         initUser();
         resetPosition();
-    };        
-    
+    };
+
     function keyDown(e) {
-        if (typeof keyMap[e.keyCode] !== "undefined") { 
+        if (typeof keyMap[e.keyCode] !== "undefined") {
             due = keyMap[e.keyCode];
             e.preventDefault();
             e.stopPropagation();
             return false;
         }
         return true;
-	};
+    };
 
-    function getNewCoord(dir, current) {   
+    function getNewCoord(dir, current) {
         return {
             "x": current.x + (dir === LEFT && -2 || dir === RIGHT && 2 || 0),
-            "y": current.y + (dir === DOWN && 2 || dir === UP    && -2 || 0)
+            "y": current.y + (dir === DOWN && 2 || dir === UP && -2 || 0)
         };
     };
 
@@ -355,14 +511,14 @@ Pacman.User = function (game, map) {
     };
 
     function pointToCoord(x) {
-        return Math.round(x/10);
+        return Math.round(x / 10);
     };
-    
+
     function nextSquare(x, dir) {
         var rem = x % 10;
-        if (rem === 0) { 
-            return x; 
-        } else if (dir === RIGHT || dir === DOWN) { 
+        if (rem === 0) {
+            return x;
+        } else if (dir === RIGHT || dir === DOWN) {
             return x + (10 - rem);
         } else {
             return x - rem;
@@ -371,35 +527,35 @@ Pacman.User = function (game, map) {
 
     function next(pos, dir) {
         return {
-            "y" : pointToCoord(nextSquare(pos.y, dir)),
-            "x" : pointToCoord(nextSquare(pos.x, dir)),
-        };                               
+            "y": pointToCoord(nextSquare(pos.y, dir)),
+            "x": pointToCoord(nextSquare(pos.x, dir)),
+        };
     };
 
     function onGridSquare(pos) {
         return onWholeSquare(pos.y) && onWholeSquare(pos.x);
     };
 
-    function isOnSamePlane(due, dir) { 
-        return ((due === LEFT || due === RIGHT) && 
-                (dir === LEFT || dir === RIGHT)) || 
-            ((due === UP || due === DOWN) && 
-             (dir === UP || dir === DOWN));
+    function isOnSamePlane(due, dir) {
+        return ((due === LEFT || due === RIGHT) &&
+            (dir === LEFT || dir === RIGHT)) ||
+            ((due === UP || due === DOWN) &&
+                (dir === UP || dir === DOWN));
     };
 
     function move(ctx) {
-        
-        var npos        = null, 
-            nextWhole   = null, 
+
+        var npos = null,
+            nextWhole = null,
             oldPosition = position,
-            block       = null;
-        
+            block = null;
+
         if (due !== direction) {
             npos = getNewCoord(due, position);
-            
-            if (isOnSamePlane(due, direction) || 
-                (onGridSquare(position) && 
-                 map.isFloorSpace(next(npos, due)))) {
+
+            if (isOnSamePlane(due, direction) ||
+                (onGridSquare(position) &&
+                    map.isFloorSpace(next(npos, due)))) {
                 direction = due;
             } else {
                 npos = null;
@@ -409,124 +565,125 @@ Pacman.User = function (game, map) {
         if (npos === null) {
             npos = getNewCoord(direction, position);
         }
-        
+
         if (onGridSquare(position) && map.isWallSpace(next(npos, direction))) {
             direction = NONE;
         }
 
         if (direction === NONE) {
-            return {"new" : position, "old" : position};
+            return { "new": position, "old": position };
         }
-        
+
         if (npos.y === 100 && npos.x >= 190 && direction === RIGHT) {
-            npos = {"y": 100, "x": -10};
+            npos = { "y": 100, "x": -10 };
         }
-        
+
         if (npos.y === 100 && npos.x <= -12 && direction === LEFT) {
-            npos = {"y": 100, "x": 190};
+            npos = { "y": 100, "x": 190 };
         }
-        
-        position = npos;        
+
+        position = npos;
         nextWhole = next(position, direction);
-        
-        block = map.block(nextWhole);        
-        
+
+        block = map.block(nextWhole);
+
         if ((isMidSquare(position.y) || isMidSquare(position.x)) &&
             block === Pacman.BISCUIT || block === Pacman.PILL) {
-            
-            map.setBlock(nextWhole, Pacman.EMPTY);           
+
+            map.setBlock(nextWhole, Pacman.EMPTY);
             addScore((block === Pacman.BISCUIT) ? 10 : 50);
             eaten += 1;
-            
+
             if (eaten === 182) {
                 game.completedLevel();
             }
-            
-            if (block === Pacman.PILL) { 
+
+            if (block === Pacman.PILL) {
                 game.eatenPill();
             }
-        }   
-                
+        }
+
         return {
-            "new" : position,
-            "old" : oldPosition
+            "new": position,
+            "old": oldPosition
+
         };
     };
 
-    function isMidSquare(x) { 
+    function isMidSquare(x) {
         var rem = x % 10;
         return rem > 3 || rem < 7;
     };
 
-    function calcAngle(dir, pos) { 
+    function calcAngle(dir, pos) {
         if (dir == RIGHT && (pos.x % 10 < 5)) {
-            return {"start":0.25, "end":1.75, "direction": false};
-        } else if (dir === DOWN && (pos.y % 10 < 5)) { 
-            return {"start":0.75, "end":2.25, "direction": false};
-        } else if (dir === UP && (pos.y % 10 < 5)) { 
-            return {"start":1.25, "end":1.75, "direction": true};
-        } else if (dir === LEFT && (pos.x % 10 < 5)) {             
-            return {"start":0.75, "end":1.25, "direction": true};
+            return { "start": 0.25, "end": 1.75, "direction": false };
+        } else if (dir === DOWN && (pos.y % 10 < 5)) {
+            return { "start": 0.75, "end": 2.25, "direction": false };
+        } else if (dir === UP && (pos.y % 10 < 5)) {
+            return { "start": 1.25, "end": 1.75, "direction": true };
+        } else if (dir === LEFT && (pos.x % 10 < 5)) {
+            return { "start": 0.75, "end": 1.25, "direction": true };
         }
-        return {"start":0, "end":2, "direction": false};
+        return { "start": 0, "end": 2, "direction": false };
     };
 
-    function drawDead(ctx, amount) { 
+    function drawDead(ctx, amount) {
 
-        var size = map.blockSize, 
+        var size = map.blockSize,
             half = size / 2;
 
-        if (amount >= 1) { 
+        if (amount >= 1) {
             return;
         }
 
         ctx.fillStyle = "#FFFF00";
-        ctx.beginPath();        
-        ctx.moveTo(((position.x/10) * size) + half, 
-                   ((position.y/10) * size) + half);
-        
-        ctx.arc(((position.x/10) * size) + half, 
-                ((position.y/10) * size) + half,
-                half, 0, Math.PI * 2 * amount, true); 
-        
-        ctx.fill();    
+        ctx.beginPath();
+        ctx.moveTo(((position.x / 10) * size) + half,
+            ((position.y / 10) * size) + half);
+
+        ctx.arc(((position.x / 10) * size) + half,
+            ((position.y / 10) * size) + half,
+            half, 0, Math.PI * 2 * amount, true);
+
+        ctx.fill();
     };
 
-    function draw(ctx) { 
+    function draw(ctx) {
 
-        var s     = map.blockSize, 
+        var s = map.blockSize,
             angle = calcAngle(direction, position);
 
         ctx.fillStyle = "#FFFF00";
 
-        ctx.beginPath();        
+        ctx.beginPath();
 
-        ctx.moveTo(((position.x/10) * s) + s / 2,
-                   ((position.y/10) * s) + s / 2);
-        
-        ctx.arc(((position.x/10) * s) + s / 2,
-                ((position.y/10) * s) + s / 2,
-                s / 2, Math.PI * angle.start, 
-                Math.PI * angle.end, angle.direction); 
-        
-        ctx.fill();    
+        ctx.moveTo(((position.x / 10) * s) + s / 2,
+            ((position.y / 10) * s) + s / 2);
+
+        ctx.arc(((position.x / 10) * s) + s / 2,
+            ((position.y / 10) * s) + s / 2,
+            s / 2, Math.PI * angle.start,
+            Math.PI * angle.end, angle.direction);
+
+        ctx.fill();
     };
-    
+
     initUser();
 
     return {
-        "draw"          : draw,
-        "drawDead"      : drawDead,
-        "loseLife"      : loseLife,
-        "getLives"      : getLives,
-        "score"         : score,
-        "addScore"      : addScore,
-        "theScore"      : theScore,
-        "keyDown"       : keyDown,
-        "move"          : move,
-        "newLevel"      : newLevel,
-        "reset"         : reset,
-        "resetPosition" : resetPosition
+        "draw": draw,
+        "drawDead": drawDead,
+        "loseLife": loseLife,
+        "getLives": getLives,
+        "score": score,
+        "addScore": addScore,
+        "theScore": theScore,
+        "keyDown": keyDown,
+        "move": move,
+        "newLevel": newLevel,
+        "reset": reset,
+        "resetPosition": resetPosition
     };
 };
 
@@ -773,6 +930,34 @@ Pacman.Audio = function(game) {
 
 var PACMAN = (function () {
 
+
+    var isPaused = false;
+    var pauseButton = document.createElement('button');
+    pauseButton.textContent = 'Pause';
+
+      // Función para pausar o reanudar el juego
+      function togglePause() {
+        if (isPaused) {
+            // Reanudar el juego
+            audio.resume();
+            map.draw(ctx);
+            setState(stored);
+            pauseButton.textContent = 'Pause';
+        } else {
+            // Pausar el juego
+            stored = state;
+            setState(PAUSE);
+            audio.pause();
+            map.draw(ctx);
+            dialog("Paused");
+            pauseButton.textContent = 'Resume';
+        }
+        isPaused = !isPaused;
+    }
+
+  
+
+
     var state        = WAITING,
         audio        = null,
         ghosts       = [],
@@ -839,6 +1024,7 @@ var PACMAN = (function () {
         
         // Desasignar el evento touchstart después del primer inicio del juego
         document.removeEventListener('touchstart', touchStart);
+        document.addEventListener()
     }
     
     // Asignar el evento touchstart al documento para iniciar el juego
@@ -981,7 +1167,7 @@ var PACMAN = (function () {
         } else if (state === WAITING && stateChanged) {            
             stateChanged = false;
             map.draw(ctx);
-            dialog("F ENTER to start a New game");            
+            dialog("ENTER to start a New game");            
         } else if (state === EATEN_PAUSE && 
                    (tick - timerStart) > (Pacman.FPS / 3)) {
             map.draw(ctx);
@@ -1280,67 +1466,4 @@ Object.prototype.clone = function () {
     }
     return newObj;
 };
-
-
-
-
-// Dentro de la función init, después de cargar los elementos necesarios
-function init(wrapper, root) {
-    // Resto de tu código existente...
-
-    var touchStartX = null;
-    var touchStartY = null;
-
-    // Manejo de eventos táctiles
-    canvas.addEventListener('touchstart', function(e) {
-        e.preventDefault();
-        var touch = e.touches[0];
-        touchStartX = touch.pageX;
-        touchStartY = touch.pageY;
-    }, false);
-
-    canvas.addEventListener('touchmove', function(e) {
-        e.preventDefault();
-        if (touchStartX === null || touchStartY === null) {
-            return;
-        }
-        var touch = e.touches[0];
-        var touchEndX = touch.pageX;
-        var touchEndY = touch.pageY;
-
-        // Calcular la dirección basada en el movimiento del dedo
-        var deltaX = touchEndX - touchStartX;
-        var deltaY = touchEndY - touchStartY;
-
-        if (Math.abs(deltaX) > Math.abs(deltaY)) {
-            // Movimiento horizontal
-            if (deltaX > 0) {
-                user.setNextDirection(Pacman.RIGHT); // Definir la dirección correcta según tu implementación
-            } else {
-                user.setNextDirection(Pacman.LEFT); // Definir la dirección correcta según tu implementación
-            }
-        } else {
-            // Movimiento vertical
-            if (deltaY > 0) {
-                user.setNextDirection(Pacman.DOWN); // Definir la dirección correcta según tu implementación
-            } else {
-                user.setNextDirection(Pacman.UP); // Definir la dirección correcta según tu implementación
-            }
-        }
-
-        // Reiniciar el punto de inicio para el próximo movimiento
-        touchStartX = touchEndX;
-        touchStartY = touchEndY;
-    }, false);
-
-    canvas.addEventListener('touchend', function(e) {
-        e.preventDefault();
-        touchStartX = null;
-        touchStartY = null;
-    }, false);
-
-    // Resto de tu código init...
-}
-
-// Asegúrate de que Pacman tenga las direcciones correspondientes definidas (UP, DOWN, LEFT, RIGHT)
 

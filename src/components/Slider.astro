@@ -1,0 +1,177 @@
+<div class="mx-auto w-10/12 h-100 mt-3 mb-1">
+    <div id="carousel" class="relative h-full">
+        <div class="overflow-hidden relative h-96 rounded-lg">
+            <div
+                class="carousel-item block absolute top-0 left-0 w-full h-full transition-opacity duration-700 ease-in-out opacity-100"
+            >
+                <picture>
+                    <img
+                        src="/public/img/slide1.jpg"
+                        class="block w-full h-full object-contain"
+                        alt="Slide 1"
+                        loading="lazy"
+                        decoding="async"
+                    />
+                </picture>
+            </div>
+            <div
+                class="carousel-item hidden absolute top-0 left-0 w-full h-full transition-opacity duration-700 ease-in-out opacity-0"
+            >
+                <picture>
+                    <img
+                        src="/public/img/computadoras.jpg"
+                        class="block w-full h-full object-contain"
+                        alt="Slide 2"
+                        loading="lazy"
+                        decoding="async"
+                    />
+                </picture>
+            </div>
+            <div
+                class="carousel-item hidden absolute top-0 left-0 w-full h-full transition-opacity duration-700 ease-in-out opacity-0"
+            >
+                <picture>
+                    <img
+                        src="/public/img/slide3.png"
+                        class="block w-full h-full object-contain"
+                        alt="Slide 3"
+                        loading="lazy"
+                        decoding="async"
+                    />
+                </picture>
+            </div>
+        </div>
+        <div
+            class="flex absolute bottom-5 left-1/2 transform -translate-x-1/2 z-30 space-x-3"
+        >
+            <button
+                type="button"
+                class="w-3 h-3 rounded-full bg-white"
+                aria-current="false"
+                aria-label="Slide 1"
+                data-slide="0">
+            </button>
+            <button
+                type="button"
+                class="w-3 h-3 rounded-full bg-white"
+                aria-current="false"
+                aria-label="Slide 2"
+                data-slide="1">
+            </button>
+            <button
+                type="button"
+                class="w-3 h-3 rounded-full bg-white"
+                aria-current="false"
+                aria-label="Slide 3"
+                data-slide="2">
+            </button>
+        </div>
+        <button
+            type="button"
+            class="absolute top-1/2 left-0 z-30 flex justify-center items-center px-4 h-10 transform -translate-y-1/2 cursor-pointer group focus:outline-none"
+            data-carousel-prev
+        >
+            <span
+                class="inline-flex justify-center items-center w-8 h-8 rounded-full bg-black bg-opacity-50 group-focus:ring-4 group-focus:ring-white focus:outline-none"
+            >
+                <svg
+                    class="w-5 h-5 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                    ><path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M15 19l-7-7 7-7"></path></svg
+                >
+            </span>
+        </button>
+        <button
+            type="button"
+            class="absolute top-1/2 right-0 z-30 flex justify-center items-center px-4 h-10 transform -translate-y-1/2 cursor-pointer group focus:outline-none"
+            data-carousel-next
+        >
+            <span
+                class="inline-flex justify-center items-center w-8 h-8 rounded-full bg-black bg-opacity-50 group-focus:ring-4 group-focus:ring-white focus:outline-none"
+            >
+                <svg
+                    class="w-5 h-5 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                    ><path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 5l7 7-7 7"></path></svg
+                >
+            </span>
+        </button>
+    </div>
+</div>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const carouselItems = document.querySelectorAll(".carousel-item");
+        const prevButton = document.querySelector("[data-carousel-prev]");
+        const nextButton = document.querySelector("[data-carousel-next]");
+        const navButtons = document.querySelectorAll("[data-slide]");
+
+        let currentSlide = 0;
+        const totalSlides = carouselItems.length;
+        const interval = 5000; // Cambiar imagen cada 5 segundos
+
+        function showSlide(index) {
+            carouselItems.forEach((item, i) => {
+                item.classList.add("hidden");
+                item.classList.remove("opacity-100");
+                item.classList.add("opacity-0");
+                if (i === index) {
+                    item.classList.remove("hidden");
+                    item.classList.add("opacity-100");
+                    item.classList.remove("opacity-0");
+                }
+            });
+            navButtons.forEach((button, i) => {
+            button.classList.remove("bg-gray-500");
+            button.classList.add("bg-white");
+            if (i === index) {
+                button.classList.remove("bg-white");
+                button.classList.add("bg-gray-500");
+            }
+            button.setAttribute("aria-current", i === index ? "true" : "false");
+        });
+    }
+
+        function prevSlide() {
+            currentSlide =
+                currentSlide > 0 ? currentSlide - 1 : totalSlides - 1;
+            showSlide(currentSlide);
+        }
+
+        function nextSlide() {
+            currentSlide =
+                currentSlide < totalSlides - 1 ? currentSlide + 1 : 0;
+            showSlide(currentSlide);
+        }
+
+        prevButton.addEventListener("click", prevSlide);
+        nextButton.addEventListener("click", nextSlide);
+        navButtons.forEach((button) => {
+            button.addEventListener("click", () => {
+                currentSlide = parseInt(button.getAttribute("data-slide"));
+                showSlide(currentSlide);
+            });
+        });
+
+        setInterval(() => {
+            nextSlide();
+        }, interval);
+
+        showSlide(currentSlide);
+    });
+</script>

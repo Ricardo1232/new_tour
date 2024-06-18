@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Boy Style Arcade Machine 3D</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #111; /* Fondo oscuro */ }
+        .arcade-machine {
+            background-color: #333; /* Color base de la máquina */
+            transform: perspective(1000px) rotateX(15deg); /* Perspectiva 3D */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.8); /* Sombra intensa */
+        }
+        .arcade-screen {
+            background-color: #000;
+            border: 4px solid #555;
+            box-shadow: inset 0 5px 10px rgba(0, 0, 0, 0.5); /* Sombra interior */
+        }
+        .arcade-screen::before { /* Simula reflejo en la pantalla */
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0));
+            border: 3px solid #555;
+            border-radius: 10px;
+        }
+        .button { /* Estilo base de los botones */
+            background-color: #555;
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            transition: transform 0.2s, box-shadow 0.2s; /* Transiciones suaves */
+        }
+        .button:active { /* Efecto al presionar */
+            transform: translateY(2px);
+            box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+        }
+        .power-button { background-color: #f00; }
+        .start-button { background-color: #ff0; }
+        .control-btn {
+            background-color: #777;
+            border-radius: 8px;
+            font-size: 1.2rem;
+        }
+        .neon-text { /* Simula texto neón (ajusta colores) */
+            color: #fff;
+            text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen">
+    <div class="arcade-machine w-96 p-6 rounded-lg relative">
+        <div id="screen" class="arcade-screen bg-black h-64 w-full rounded-t-lg relative flex items-center justify-center text-white text-lg font-bold">
+            <!-- Placeholder for screen content -->
+            Aqui va el juego
+        </div>
+        
+        <!-- Power Button -->
+        <div class="flex justify-center mt-4">
+            <button id="power-button" class="bg-red-500 text-white py-2 px-4 rounded-full hover:bg-red-400">
+                POWER
+            </button>
+        </div>
+
+        <div class="flex justify-between mt-6">
+            <div class="flex flex-col items-center space-y-2">
+                <button class="control-btn h-10 w-10">U</button>
+                <div class="flex space-x-2">
+                    <button class="control-btn h-10 w-10">L</button>
+                    <button class="control-btn h-10 w-10">R</button>
+                </div>
+                <button class="control-btn h-10 w-10">D</button>
+            </div>
+            <div class="flex flex-col space-y-4">
+                <button class="button bg-red-600 h-14 w-14 rounded-full"></button>
+                <button class="button bg-blue-600 h-14 w-14 rounded-full"></button>
+                <button class="button bg-green-600 h-14 w-14 rounded-full"></button>
+            </div>
+        </div>
+
+        <button class="start-button button mt-6 h-12 w-full rounded-full neon-text">
+            START
+        </button>
+    </div>
+    <script>
+        const powerButton = document.getElementById('power-button');
+        const screen = document.getElementById('screen');
+
+        powerButton.addEventListener('click', () => {
+            if (screen.classList.contains('bg-black')) {
+                screen.classList.remove('bg-black');
+                screen.classList.add('bg-white');
+                screen.textContent = 'Aquí va el juego';
+            } else {
+                screen.classList.remove('bg-white');
+                screen.classList.add('bg-black');
+                screen.textContent = '';
+            }
+        });
+    </script>
+</body>
+</html>
+
+

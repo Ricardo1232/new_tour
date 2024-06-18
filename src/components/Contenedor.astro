@@ -1,0 +1,41 @@
+---
+export interface Props {
+  estilo: string;
+  titulo: string;
+  textoTitulo: string;
+  subtitulo1: string;
+  textoSub1: string;
+  subtitulo2: string;
+  textoSub2: string;
+  textoBajo: string;
+}
+
+const { estilo, titulo, textoTitulo, subtitulo1, subtitulo2, textoSub1, textoSub2, textoBajo } = Astro.props;
+---
+
+<div class={`bg-gradient-to-tr from-${estilo}-500 to-${estilo}-400 p-8 md:p-12 rounded-lg shadow-lg my-10 opacity-90`}>
+    <h2 class="text-3xl md:text-4xl font-bold text-white text-center mb-4">{titulo}</h2>
+
+    <p class="text-white text-center font-sans text-lg md:text-xl leading-relaxed mb-6">
+        {textoTitulo}
+    </p>
+
+    <div class={`flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-8`}>
+        <div class={`bg-${estilo}-100 p-4 rounded-lg shadow-md`}>
+            <h3 class="text-xl font-semibold text-${estilo}-900 mb-2">{subtitulo1}</h3>
+            <p class={`text-${estilo}-800`}>
+                {textoSub1}
+            </p>
+        </div>
+        <div class={`bg-${estilo}-100 p-4 rounded-lg shadow-md`}>
+            <h3 class={`text-xl font-semibold text-${estilo}-900 mb-2`}>{subtitulo2}</h3>
+            <p class={`text-${estilo}-800`}>
+                {textoSub2}
+            </p>
+        </div>
+    </div>
+
+    <p class="text-white text-center font-sans text-lg md:text-xl leading-relaxed mt-6">
+        {textoBajo}
+    </p>
+</div>

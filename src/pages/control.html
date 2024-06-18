@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nintendo D-pad Controller</title>
+<style>
+  .controller {
+    width: 200px;
+    height: 200px;
+    background-color: gray;
+    border-radius: 50%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .button {
+    width: 60px;
+    height: 60px;
+    background-color: white;
+    border-radius: 50%;
+    position: absolute;
+    cursor: pointer;
+  }
+
+  .up {
+    top: 0;
+    left: 70px;
+  }
+
+  .down {
+    bottom: 0;
+    left: 70px;
+  }
+
+  .left {
+    top: 70px;
+    left: 0;
+  }
+
+  .right {
+    top: 70px;
+    right: 0;
+  }
+
+  .center {
+    width: 60px;
+    height: 60px;
+    background-color: gray;
+    border-radius: 50%;
+    position: absolute;
+  }
+</style>
+</head>
+<body>
+
+<div class="controller">
+  <div class="button up"></div>
+  <div class="button down"></div>
+  <div class="button left"></div>
+  <div class="button right"></div>
+  <div class="center"></div>
+</div>
+<script>
+  function moveUp() {
+    // Lógica para mover hacia arriba en el juego
+    console.log("Moving up");
+  }
+
+  function moveDown() {
+    // Lógica para mover hacia abajo en el juego
+    console.log("Moving down");
+  }
+
+  function moveLeft() {
+    // Lógica para mover hacia la izquierda en el juego
+    console.log("Moving left");
+  }
+
+  function moveRight() {
+    // Lógica para mover hacia la derecha en el juego
+    console.log("Moving right");
+  }
+</script>
+
+</body>
+</html>
